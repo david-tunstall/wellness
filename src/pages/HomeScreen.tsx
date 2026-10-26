@@ -55,6 +55,14 @@ export default function HomeScreen() {
               : `${sessionsThisWeek} session${sessionsThisWeek === 1 ? '' : 's'} so far`}
         </p>
       </Card>
+
+      <Link
+        to="/library"
+        className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700"
+      >
+        <span className="font-medium">Exercise library</span>
+        <span className="text-slate-400">›</span>
+      </Link>
     </div>
   )
 }

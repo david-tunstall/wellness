@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import UpdatePrompt from './UpdatePrompt'
 
 const tabs = [
@@ -9,13 +9,16 @@ const tabs = [
 ]
 
 export default function Layout() {
+  // Keep the workout screen free of distractions
+  const inWorkout = useLocation().pathname === '/workout/play'
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col">
-      <main className="flex-1 px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-28">
+      <main className={`flex-1 px-4 pt-[max(1rem,env(safe-area-inset-top))] ${inWorkout ? 'pb-6' : 'pb-28'}`}>
         <Outlet />
       </main>
       <UpdatePrompt />
-      <nav className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
+      <nav hidden={inWorkout} className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
         <ul className="mx-auto grid max-w-lg grid-cols-4">
           {tabs.map((t) => (
             <li key={t.to}>

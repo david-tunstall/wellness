@@ -6,7 +6,8 @@ See [CLAUDE.md](CLAUDE.md) for the full brief and build order.
 
 ## Status
 
-Phase 1 done: project setup, PWA (installable, works offline), Netlify config, on-device database (IndexedDB via Dexie) and the navigation shell (Train, Food, Progress, Settings).
+- Phase 1 done: project setup, PWA (installable, works offline), Netlify config, on-device database (IndexedDB via Dexie) and the navigation shell (Train, Food, Progress, Settings).
+- Phase 2 done: exercise library (quiet, no-jumping home moves with form tips), Home workout builder (15, 25 or 40 minutes, optional warm up, swap any move), timer screen with beeps and vibration, logging and gentle progression (targets creep up, press ups move up a variation when you're ready).
 
 ## Run locally
 
@@ -15,6 +16,7 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # type check and production build into dist/
 npm run preview  # serve the production build (service worker active)
+npm test         # unit tests
 ```
 
 ## Deploy to Netlify

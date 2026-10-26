@@ -51,6 +51,13 @@ export interface WeighIn {
   kg: number
 }
 
+// Current target per exercise, nudged up gently when a session goes well
+export interface ExerciseProgress {
+  exerciseId: string
+  target: number
+  updatedAt: number
+}
+
 export interface Setting {
   key: string
   value: unknown
@@ -63,6 +70,7 @@ export const db = new Dexie('fettle') as Dexie & {
   savedFoods: EntityTable<SavedFood, 'id'>
   weighIns: EntityTable<WeighIn, 'id'>
   settings: EntityTable<Setting, 'key'>
+  progress: EntityTable<ExerciseProgress, 'exerciseId'>
 }
 
 db.version(1).stores({
@@ -73,6 +81,19 @@ db.version(1).stores({
   weighIns: '++id, &date',
   settings: 'key',
 })
+
+db.version(2).stores({
+  progress: 'exerciseId',
+})
+
+export async function getSetting<T>(key: string, fallback: T): Promise<T> {
+  const row = await db.settings.get(key)
+  return row === undefined ? fallback : (row.value as T)
+}
+
+export function setSetting(key: string, value: unknown) {
+  return db.settings.put({ key, value })
+}
 
 // Ask the browser not to clear our data when space is tight.
 export async function requestPersistence(): Promise<boolean> {
